@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">OSSmsGateway</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="apagado">APAGADO</string>
+    <string name="encendido">ENCENDIDO</string>
+    <string name="textview">TextView</string>
+</resources>
