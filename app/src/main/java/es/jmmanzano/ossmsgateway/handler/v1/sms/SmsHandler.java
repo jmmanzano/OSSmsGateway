@@ -128,7 +128,7 @@ public class SmsHandler extends RouterNanoHTTPD.DefaultHandler {
                 JSONArray resp = (JSONArray) new JSONTokener(response).nextValue();
                 return resp.toString(2);
             }catch (JSONException jex){
-                return "[{'code':404}]";
+                return "[{'code':403}]";
             }
         } else {
             return  "[{'code':404}]";

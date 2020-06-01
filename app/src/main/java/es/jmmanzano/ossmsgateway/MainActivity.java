@@ -11,8 +11,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.format.Formatter;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -47,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     startServer();
-                    addLog("SERVER STARTER");
+                    WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    String ipAddress = Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
+                    MainActivity.addLog(ipAddress);
+                    addLog("SERVER STARTER IN "+ipAddress+":8080");
                 } else {
                     stopServer();
                     addLog("SERVER STOPPED");

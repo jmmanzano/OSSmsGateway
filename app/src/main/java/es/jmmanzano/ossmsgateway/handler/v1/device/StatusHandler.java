@@ -3,9 +3,11 @@ package es.jmmanzano.ossmsgateway.handler.v1.device;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -58,7 +60,6 @@ public class StatusHandler extends RouterNanoHTTPD.DefaultHandler {
             }
 
             String nON = tel.getNetworkOperatorName();
-
             BatteryManager bm = (BatteryManager)MainActivity.ma.getSystemService(Context.BATTERY_SERVICE);
             int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
             boolean isChargin = bm.isCharging();

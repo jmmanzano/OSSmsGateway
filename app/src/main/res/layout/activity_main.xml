@@ -8,25 +8,24 @@
 
     <ToggleButton
         android:id="@+id/btnOnOff"
-        android:layout_width="338dp"
-        android:layout_height="63dp"
+        android:layout_width="365dp"
+        android:layout_height="57dp"
         android:text="@string/togglebutton"
         android:textOff="@string/apagado"
         android:textOn="@string/encendido"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/logTextView"
-        android:layout_width="328dp"
-        android:layout_height="533dp"
-        android:text="@string/textview"
-        android:scrollbars = "vertical"
+        android:layout_width="354dp"
+        android:layout_height="550dp"
         android:gravity="bottom"
+        android:scrollbars="vertical"
+        android:text="@string/textview"
         app:layout_constraintBottom_toTopOf="@+id/btnOnOff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
