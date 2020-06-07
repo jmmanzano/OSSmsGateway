@@ -3,27 +3,21 @@ package es.jmmanzano.ossmsgateway.handler.v1.device;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
-import android.text.format.Formatter;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.util.Map;
 
 import es.jmmanzano.ossmsgateway.MainActivity;
+import es.jmmanzano.ossmsgateway.utils.Utils;
 import fi.iki.elonen.NanoHTTPD;
 import fi.iki.elonen.router.RouterNanoHTTPD;
 
-import static fi.iki.elonen.NanoHTTPD.newFixedLengthResponse;
 
 public class StatusHandler extends RouterNanoHTTPD.DefaultHandler {
     @Override
@@ -49,14 +43,7 @@ public class StatusHandler extends RouterNanoHTTPD.DefaultHandler {
         if (session.getMethod() == NanoHTTPD.Method.GET && uriResource.getUri().toString().equals("v1/device/status")) {
             TelephonyManager tel = (TelephonyManager) MainActivity.ma.getSystemService(Context.TELEPHONY_SERVICE);
             if (ActivityCompat.checkSelfPermission(MainActivity.ma, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                System.err.println("error de permisos");
-                NanoHTTPD.Response response = newFixedLengthResponse("[{code:'404'}]");
-                response.addHeader("Access-Control-Allow-Origin", "*");
-                response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-                response.addHeader("Access-Control-Allow-Headers", "X-Requested-With");
-                response.addHeader("Content-Type", getMimeType());
-                return  response;
-
+                return Utils.getResponse("{\"message\":\"READ PHONE STATE permission required\"}", "", true);
             }
 
             String nON = tel.getNetworkOperatorName();
@@ -65,20 +52,6 @@ public class StatusHandler extends RouterNanoHTTPD.DefaultHandler {
             boolean isChargin = bm.isCharging();
             salida = "{'NetWorkOperatorName': "+nON+", 'batteryLevel': "+batLevel+", 'isCharging':"+isChargin+"}";
         }
-        try{
-            JSONObject resp = (JSONObject) new JSONTokener(salida).nextValue();
-            salida =  resp.toString(2);
-        }catch (JSONException jex){
-            salida = "[{'code':404}]";
-        }
-
-
-        NanoHTTPD.Response response = newFixedLengthResponse(salida);
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-        response.addHeader("Access-Control-Allow-Headers", "X-Requested-With");
-        response.addHeader("Content-Type", getMimeType());
-
-        return response;
+        return Utils.getResponse(salida, "", true);
     }
 }

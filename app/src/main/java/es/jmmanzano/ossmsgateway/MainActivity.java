@@ -1,9 +1,5 @@
 package es.jmmanzano.ossmsgateway;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -20,6 +16,10 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                     startServer();
                     WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     String ipAddress = Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
-                    MainActivity.addLog(ipAddress);
                     addLog("SERVER STARTER IN "+ipAddress+":8080");
                 } else {
                     stopServer();
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         ma = this;
     }
 
+
     private void startServer(){
         boolean perm1 = Boolean.FALSE;
         boolean perm2 = Boolean.FALSE;
@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             httpServer = new HttpServer();
             httpServer.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
-            System.out.println("Iniciando servidor");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -136,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     permission)) {
-               MainActivity.addLog("Is required ask for "+permission);
                 return isPermissionGranted;
             } else {
                 ActivityCompat.requestPermissions(this,
@@ -150,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        MainActivity.addLog("Añadiendo permisos" + requestCode);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_SEND_SMS: {
                 // If request is cancelled, the result arrays are empty.
@@ -179,12 +176,10 @@ public class MainActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    MainActivity.addLog("read sms true");
                     PERMISSIONS_READ_SMS = Boolean.TRUE;
                     checkPermissions(Manifest.permission.SEND_SMS, MY_PERMISSIONS_REQUEST_SEND_SMS, PERMISSIONS_SEND_SMS);
 
                 } else {
-                    MainActivity.addLog("read sms else");
                     checkPermissions(Manifest.permission.READ_SMS, MY_PERMISSIONS_REQUEST_READ_SMS, PERMISSIONS_READ_SMS);
                     PERMISSIONS_READ_SMS = Boolean.FALSE;
                 }

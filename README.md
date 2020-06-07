@@ -33,9 +33,11 @@ Su nivel de madurez actual es muy bajo.
 
 
 
+
 <!-- end description -->
 
 <!-- start prerequisites -->
+
 
 
 <!-- end prerequisites -->
@@ -46,9 +48,10 @@ Su nivel de madurez actual es muy bajo.
 
 Puedes descargar el proyecto y construir tu propio APK con Android Studio.
 
-También puedes descargar el apk ya construido desde [aquí](https://github.com/jmmanzano/OSSmsGateway/releases/download/0.0.1/OSSmsGateway_0.0.1.apk)
+También puedes descargar el apk ya construido desde [aquí](https://github.com/jmmanzano/OSSmsGateway/releases)
 
 Requiere permisos para LEER y ENVIAR SMS y para conocer el ESTADO DEL TELÉFONO.
+
 
 
 <!-- end installing -->
@@ -63,10 +66,19 @@ Al mantener la compatibilidad con REST SMS Gateway puedes enviar SMS mediante m�
 
 También permite leer SMS mediante peticiones GET:
 
-- curl -X "GET" "http://192.168.1.101:8080/v1/sms/" (devolverá los 10 últimos)
-- curl -X "GET" "http://192.168.1.101:8080/v1/sms/100" (devolverá los 100 últimos)
+- curl -X "GET" "http://192.168.1.51:8080/v1/sms/" (devolverá los 10 últimos)
+- curl -X "GET" "http://192.168.1.51:8080/v1/sms/100" (devolverá los 100 últimos)
+
+Se está iniciando la implementación de la lectura de convesaciones o hilos:
+- curl -X "GET" "http://192.168.1.51:8080/v1/thread/"
+- curl -X "GET" "http://192.168.1.51:8080/v1/thread/?offset=4&limit=20"
+
+Y de conversaciones por ID:
+
+- curl -X "GET" "http://192.168.1.51:8080/v1/thread/12/"
 
 Se está implementando la parte de estatus, pero no es ni completa ni mantiene aún la compatibilidad con REST SMS Gateway
+
 
 
 <!-- end using -->
@@ -74,9 +86,11 @@ Se está implementando la parte de estatus, pero no es ni completa ni mantiene a
 <!-- start contributing -->
 
 
+
 <!-- end contributing -->
 
 <!-- start contributors -->
+
 
 
 <!-- end contributors -->
