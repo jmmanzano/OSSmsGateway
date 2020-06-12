@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.telephony.SmsManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,14 +54,26 @@ public class SmsHandler extends RouterNanoHTTPD.DefaultHandler {
             String SENT = "SMS_SENT";
             String DELIVERED = "SMS_DELIVERED";
             Context baseContext = MainActivity.ma.getBaseContext();
+            ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
+            ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
             PendingIntent sentPI = PendingIntent.getBroadcast(baseContext, 0,
                     new Intent(SENT), 0);
 
             PendingIntent deliveredPI = PendingIntent.getBroadcast(baseContext, 0,
                     new Intent(DELIVERED), 0);
 
+
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phone, null, message, sentPI, deliveredPI);
+            ArrayList<String> smsParts = smsManager.divideMessage(message);
+            for (int i = 0; i < smsParts.size(); i++) {
+                sentPendingIntents.add(i, sentPI);
+                deliveredPendingIntents.add(i, deliveredPI);
+            }
+            smsManager.sendMultipartTextMessage(phone, null, smsParts, sentPendingIntents, deliveredPendingIntents);
+            for (PendingIntent pi: sentPendingIntents ) {
+
+            };
+
             MainActivity.addLog("Message send to :" + phone + " " + message);
             return Utils.getResponse("{\"status\":200}", "", true);
         }else if((session.getMethod() == NanoHTTPD.Method.GET && uriResource.getUri().toString().equals("v1/sms"))
