@@ -8,16 +8,17 @@
 
     <ToggleButton
         android:id="@+id/btnOnOff"
-        android:layout_width="365dp"
-        android:layout_height="57dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/togglebutton"
         android:textOff="@string/apagado"
         android:textOn="@string/encendido"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <TextView
         android:id="@+id/logTextView"
@@ -28,7 +29,21 @@
         android:text="@string/textview"
         app:layout_constraintBottom_toTopOf="@+id/btnOnOff"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
+
+    <Button
+        android:id="@+id/btnLimpiar"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="@string/limpiar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.658"
+        app:layout_constraintStart_toEndOf="@+id/btnOnOff"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
