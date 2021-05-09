@@ -23,6 +23,7 @@ codefactor-badge: False
 
 <!-- start description -->
 # OSSmsGateway
+Versión en desuso, actualmente me encuentro desarrollando un proyecto igual en Flutter [aquí](https://github.com/jmmanzano/OSmsGateway)
 ## Descripción
 OpenSourceSmsGateway es una aplicación basada en [nanohttpd](https://github.com/NanoHttpd/nanohttpd) que permite crear una API REST en tu teléfono móvil para el envío de SMS.
 
